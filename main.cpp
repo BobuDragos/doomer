@@ -11,22 +11,25 @@
 
 
 std::vector<Line> walls;
-RayCaster particle;
+RayCaster caster;
 
 void setup() 
 {
-    for (int i = 0; i < 5; i++) 
-    {
-        float x1 = rand() % 400;
-        float x2 = rand() % 400;
-        float y1 = rand() % 400;
-        float y2 = rand() % 400;
-        walls.emplace_back(x1, y1, x2, y2);
-    }
-    walls.emplace_back(-1, -1, 400, -1);
-    walls.emplace_back(400, -1, 400, 400);
-    walls.emplace_back(400, 400, -1, 400);
-    walls.emplace_back(-1, 400, -1, -1);
+    // for (int i = 0; i < 5; i++) 
+    // {
+    //     float x1 = rand() % 400;
+    //     float x2 = rand() % 400;
+    //     float y1 = rand() % 400;
+    //     float y2 = rand() % 400;
+    //     walls.emplace_back(x1, y1, x2, y2);
+    // }
+    walls.emplace_back(-1, -1, -1,  1);
+    walls.emplace_back(-1,  1,  1,  1);
+    walls.emplace_back( 1,  1,  1, -1);
+    walls.emplace_back( 1, -1, -1, -1);
+
+
+    walls.emplace_back( 100, 100, -100, -100);
 }
 
 void display() {
@@ -37,9 +40,9 @@ void display() {
     }
     // You'll need to handle mouse input differently in OpenGL.
     // Replace mouseX and mouseY with appropriate input handling.
-    // particle.update(mouseX, mouseY);
-    particle.show();
-    particle.look(walls);
+    // caster.update(mouseX, mouseY);
+    caster.show();
+    caster.look(walls);
     glutSwapBuffers();
 }
 
@@ -53,6 +56,27 @@ void reshape(int w, int h)
     glLoadIdentity();
 }
 
+void keyboard(unsigned char key, int x, int y)
+{
+  switch (key) 
+  {
+    case 'w':
+        caster.move(0, -50); // Move particle up
+        caster.show();
+        break;
+    case 's':
+        caster.move(0, 5); // Move particle down
+        break;
+    case 'a':
+        caster.move(-5, 0); // Move particle left
+        break;
+    case 'd':
+        caster.move(5, 0); // Move particle right
+        break;
+  }
+  glutPostRedisplay(); // Request redraw
+}
+
 
 int main(int argc, char** argv) 
 {
@@ -63,6 +87,7 @@ int main(int argc, char** argv)
     setup();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
+    glutKeyboardFunc(keyboard);
     glutMainLoop();
     return 0;
 }

@@ -17,6 +17,25 @@ class RayCaster
             pos.y = y;
         }
 
+        void rotate(float angle) {
+            // this->heading += angle;
+            // int index = 0;
+            // for (float a = -this->fov / 2; a < this->fov / 2; a += 1) {
+            //     this->rays[index].setAngle(a + this->heading);
+            //     index++;
+            // }
+        }
+
+        // void move(float amt) {
+        //     this->pos[0] += cos(this->heading) * amt;
+        //     this->pos[1] += sin(this->heading) * amt;
+        // }
+
+        void move(float dx, float dy) {
+            pos.x += dx;
+            pos.y += dy;
+        }
+        
         void look(const std::vector<Line>& walls) 
         {
             for (auto& ray : rays) 
