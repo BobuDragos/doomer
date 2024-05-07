@@ -1,0 +1,8 @@
+ 1706  g++ main.cpp -o main -lGL -lGLU -lglut -ldl -lm -lglfw -lGLEW -lXi -lXmu && ./main
+ 1711  g++ main.cpp -o main -lGL -lGLU -lglut -ldl -lm -lglfw -lGLEW -lXi -lXmu && ./main
+ 1713  g++ main.cpp -o main -lGL -lGLU -lglut -ldl -lm -lglfw -lGLEW -lXi -lXmu && ./main
+ 1722  g++ main.cpp -o main -lGL -lGLU -lglut -ldl -lm -lglfw -lGLEW -lXi -lXmu && ./main
+ 1729  g++ main.cpp -o main -lGL -lGLU -lglut -ldl -lm -lglfw -lGLEW -lXi -lXmu && ./main
+ 1731  g++ main.cpp -o main -lGL -lGLU -lglut -ldl -lm -lglfw -lGLEW -lXi -lXmu && ./main
+ 1733  g++ main.cpp -o main -lGL -lGLU -lglut -ldl -lm -lglfw -lGLEW -lXi -lXmu && ./main
+ 1735  g++ main.cpp -o main -lGL -lGLU -lglut -ldl -lm -lglfw -lGLEW -lXi -lXmu && ./main
