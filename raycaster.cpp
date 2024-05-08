@@ -5,7 +5,7 @@ class RayCaster
     public:
         RayCaster() : pos{400.0f / 2.0f, 400.0f / 2.0f} 
         {
-            for (float a = 0; a < 360; a += 1) 
+            for (float a = -45; a < 45; a += 1) 
             {
                 rays.push_back(Ray(pos.x, pos.y, a * M_PI / 180.0f));
             }
