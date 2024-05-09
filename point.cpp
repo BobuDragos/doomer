@@ -1,3 +1,5 @@
+
+
 struct Point
 {
   public:

@@ -10,51 +10,64 @@
 #include <vector>
 
 
-std::vector<Line> walls;
+struct Player
+{
 RayCaster caster;
+
+struct Keybindings
+{
+  char* moveup    = "w";
+  char* movedown  = "s";
+  char* moveleft  = "a";
+  char* moveright = "d";
+ 
+  char* rotateleft  = "q";
+  char* rotateright = "e";
+} keys;
+
+}player;
+
+struct Map
+{
+
+std::vector<Line> walls;
+
+}map;
+
+
 
 const int WIDTH = 500;
 const int HEIGHT = 500;
 
-void setup() 
+void place_walls() 
 {
-    // for (int i = 0; i < 5; i++) 
-    // {
-    //     float x1 = rand() % 400;
-    //     float x2 = rand() % 400;
-    //     float y1 = rand() % 400;
-    //     float y2 = rand() % 400;
-    //     walls.emplace_back(x1, y1, x2, y2);
-    // }
-    // walls.push_back(-1, -1, -1,  1);
-    // walls.push_back(-1,  1,  1,  1);
-    // walls.push_back( 1,  1,  1, -1);
-    // walls.push_back( 1, -1, -1, -1);
-
-    walls.push_back(Line(    0,      0, WIDTH,      0));
-    walls.push_back(Line(WIDTH,      0, WIDTH, HEIGHT));
-    walls.push_back(Line(WIDTH, HEIGHT,     0, HEIGHT));
-    walls.push_back(Line(    0, HEIGHT,     0,      0));
+    map.walls.push_back(Line(    0,      0, WIDTH,      0));
+    map.walls.push_back(Line(WIDTH,      0, WIDTH, HEIGHT));
+    map.walls.push_back(Line(WIDTH, HEIGHT,     0, HEIGHT));
+    map.walls.push_back(Line(    0, HEIGHT,     0,      0));
 
 
-    walls.push_back(Line(  WIDTH/4,   HEIGHT/4, 3*WIDTH/4,   HEIGHT/4));
-    walls.push_back(Line(3*WIDTH/4,   HEIGHT/4, 3*WIDTH/4, 3*HEIGHT/4));
-    walls.push_back(Line(3*WIDTH/4, 3*HEIGHT/4,   WIDTH/4, 3*HEIGHT/4));
-    walls.push_back(Line(  WIDTH/4, 3*HEIGHT/4, WIDTH/4, HEIGHT/4));
+    map.walls.push_back(Line(  WIDTH/4,   HEIGHT/4, 3*WIDTH/4,   HEIGHT/4));
+    map.walls.push_back(Line(3*WIDTH/4,   HEIGHT/4, 3*WIDTH/4, 3*HEIGHT/4));
+    map.walls.push_back(Line(3*WIDTH/4, 3*HEIGHT/4,   WIDTH/4, 3*HEIGHT/4));
+    map.walls.push_back(Line(  WIDTH/4, 3*HEIGHT/4, WIDTH/4, HEIGHT/4));
+}
+
+void place_player()
+{
 }
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
-    for (const auto& wall : walls) 
+    for (const auto& wall : map.walls) 
     {
-      printf("%f, %f, %f, %f \n", wall.a.x, wall.a.y, wall.b.x, wall.b.y);
       wall.show();
     }
     // You'll need to handle mouse input differently in OpenGL.
     // Replace mouseX and mouseY with appropriate input handling.
     // caster.update(mouseX, mouseY);
-    caster.show();
-    caster.look(walls);
+//player.caster.show();
+    player.caster.look(map.walls);
     glutSwapBuffers();
 }
 
@@ -73,17 +86,16 @@ void keyboard(unsigned char key, int x, int y)
   switch (key) 
   {
     case 'w':
-        caster.move(0, -25); // Move particle up
-        caster.show();
+        player.caster.move(0, -25); // Move particle up
         break;
     case 's':
-        caster.move(0, 25); // Move particle down
+        player.caster.move(0, 25); // Move particle down
         break;
     case 'a':
-        caster.move(-25, 0); // Move particle left
+        player.caster.move(-25, 0); // Move particle left
         break;
     case 'd':
-        caster.move(25, 0); // Move particle right
+        player.caster.move(25, 0); // Move particle right
         break;
   }
   glutPostRedisplay(); // Request redraw
@@ -104,7 +116,8 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("2D Ray Casting");
-    setup();
+    place_walls();
+    place_player();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
